@@ -8,24 +8,12 @@
     <link rel="stylesheet" href="../css/updata.css">
 </head>
 <body>
-    <div id="updata">
+    <div id="newsong" class="newsong"></div>
+    <div id="updata" class="updata">
         <button id="updataButton">上传</button>
     </div>
-    <div class="song-form" id="songform">
-        <div>
-            <label for="">歌名</label>
-            <input type="text" name="name">
-        </div>
-        <div>
-            <label for="">歌手</label>
-            <input type="text" name="singer">
-        </div>
-        <div>
-            <label for="">外链</label>
-            <input type="text" name="url">
-        </div>
-        <button type="submit" id="button">保存歌曲</button>
-    </div>
+    <div class="song-form" id="songform"></div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="../src/av/av.js"></script>
@@ -36,5 +24,6 @@
 
     <script src="../src/admin/updata.js"></script>
     <script src="../src/admin/songform.js"></script>
+    <script src="../src/admin/newsong.js"></script>
 </body>
 </html>

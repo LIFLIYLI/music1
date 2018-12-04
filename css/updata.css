@@ -1,5 +1,14 @@
-#updata{
+.newsong{
+    border:1px solid burlywood;
+}
+.newsong>ol{
+    list-style:none;
+}
+.updata{
     width: 50px;
     height: 80px;
     border:1px solid red;
+}
+.song-form{
+
 }

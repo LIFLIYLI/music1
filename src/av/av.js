@@ -16,4 +16,17 @@
     alert('LeanCloud Rocks!');
     })
     */
+   let Song = AV.Object.extend('Song');
+   // 新建对象
+   let song = new Song();
+   // 设置名称
+   song.set('name','歌名');
+   // 设置优先级
+   song.set('singer','歌手');
+   song.set('url','外链');
+   song.save().then(function (todo) {
+     console.log('objectId is ' + todo.id);
+   }, function (error) {
+     console.error(error);
+   });
 }
