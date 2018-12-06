@@ -77,8 +77,11 @@ var uploader = Qiniu.uploader({
                // 查看简单反馈
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info.response);
-                var sourceLink = domain +"/"+ res.key; //获取上传成功后的文件的Url
-                
+                var url = domain +"/"+ res.key; //获取上传成功后的文件的Url
+                window.eventHub.emit('new',{
+                    'url':url,
+                    'name':res.key,
+                })                
         },
         'Error': function(up, err, errTip) {
                //上传出错时，处理相关的事情
@@ -86,12 +89,5 @@ var uploader = Qiniu.uploader({
         'UploadComplete': function() {
                //队列文件处理完毕后，处理相关的事情
         },
-        'Key': function(up, file) {
-            // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
-            // 该配置必须要在unique_names: false，save_key: false时才生效
-            var key = "woowowow";
-            // do something with key here
-            return key
-        }
     }
 });
