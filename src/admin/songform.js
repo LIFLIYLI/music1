@@ -48,7 +48,7 @@
               console.error(error);
             });
         },
-        newdata(){
+        upData(){
             var todo = AV.Object.createWithoutData('Song', '5745557f71cfe40068c6abe0');
             // 修改属性
             todo.set('content', '每周工程师会议，本周改为周三下午3点半。');
