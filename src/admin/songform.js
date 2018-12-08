@@ -31,7 +31,7 @@
     }
     let model={
         data:{},
-        updata(){
+        savedate(){
             let Song = AV.Object.extend('Song');
             // 新建对象
             let song = new Song();
@@ -83,7 +83,7 @@
             this.model.data=data
             console.log('_____')
             console.log(this.model.data)
-            this.model.updata()
+            this.model.savedate()
             window.eventHub.emit('songlist',this.model.data)   //这里给列表渲染的参数  
         },
     }
