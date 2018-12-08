@@ -14,7 +14,7 @@
         }
     }
     let model={
-        data:{},
+        data:[],
         
     }
     let controller={
@@ -31,20 +31,32 @@
         },
         bindevents(){
             $(this.view.el).find('ol').on('click','li',(item)=>{
-                console.log(item)//这里想办法获取子元素
+                let targ=item.currentTarget.innerText
+                let data=this.model.data
+                data.map((item)=>{
+                    if(item.name===targ){
+                        window.eventHub.emit('new',{
+                            name:item.name,
+                            url:item.url
+                        })
+                    }
+                })
             })
         },
         setlist(name){
             let list=document.createElement('li')
-            list.innerText=name.name
-            $(this.view.el).find('ol').append(list)
+            name.map((item)=>{
+                list.innerText=item.name
+                $(this.view.el).find('ol').append(list)
+            })         
         },
         getsonglist(){
             var query = new AV.Query('Song');
             query.find().then((todo)=> {
               // 成功获得实例
               todo.map((item)=>{
-                this.setlist(item.attributes)
+               this.model.data.push(item.attributes)
+                this.setlist(this.model.data)              
               })
               // todo 就是 id 为 57328ca079bc44005c2472d0 的 Todo 对象实例
             }, function (error) {

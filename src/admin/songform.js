@@ -40,11 +40,20 @@
             // 设置优先级
             song.set('singer',this.data.singer);
             song.set('url',this.data.url);
-            song.save().then(function (todo) {
+            song.save().then((todo)=> {
+                let{id,attributes}=todo
+                Object.assign(this.data,{id,...attributes})
               console.log('objectId is ' + todo.id);
             }, function (error) {
               console.error(error);
             });
+        },
+        newdata(){
+            var todo = AV.Object.createWithoutData('Song', '5745557f71cfe40068c6abe0');
+            // 修改属性
+            todo.set('content', '每周工程师会议，本周改为周三下午3点半。');
+            // 保存到云端
+            todo.save(); 
         }
     }
     let controller={
@@ -57,9 +66,6 @@
             window.eventHub.on('new',(data)=>{              
                 this.view.render(data)
             })
-            window.eventHub.on('setSong',(data)=>{
-               this.model.updata()
-              })
         },
         bindEvents(){
             this.view.$el.on('click','button',(e)=>{
@@ -70,12 +76,14 @@
         },
         getText(){
             let data=[]
-            let needs=['name','singer','url']
+            let needs=['name','singer','url',]
             let string=needs.map((item)=>{
                 data[item]=this.view.$el.find(`[name="${item}"]`).val()          
             })
             this.model.data=data
-            window.eventHub.emit('setSong')//发给数据库的函数
+            console.log('_____')
+            console.log(this.model.data)
+            this.model.updata()
             window.eventHub.emit('songlist',this.model.data)   //这里给列表渲染的参数  
         },
     }
