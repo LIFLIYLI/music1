@@ -4,11 +4,14 @@
         init(){
             this.$el=$(this.el)
         },
+        getName(){
+            $(`${this.$el} `)
+        },
         template:`
         <h2>新建歌曲</h2>
         <div>
             <label for="">歌名</label>
-            <input type="text" name="name" value="__name__">
+            <input type="text" data-id="__id__" name="name" value="__name__">
         </div>
         <div>
             <label for="">歌手</label>
@@ -21,7 +24,7 @@
         <button type="submit" id="button">保存歌曲</button>
         `,
         render(data={}){
-            let place=['name','singer','url']
+            let place=['id','name','singer','url']
             html=this.template
             place.map((item)=>{
                 html=html.replace(`__${item}__`,data[item]||'')
@@ -30,7 +33,7 @@
         }
     }
     let model={
-        data:{},
+        data:[],
         saveData(){
             let Song = AV.Object.extend('Song');
             // 新建对象
@@ -43,15 +46,16 @@
             song.save().then((todo)=> {
                 let{id,attributes}=todo
                 Object.assign(this.data,{id,...attributes})
-              console.log('objectId is ' + todo.id);
             }, function (error) {
               console.error(error);
             });
         },
-        upData(){
-            var todo = AV.Object.createWithoutData('Song', '5745557f71cfe40068c6abe0');
+        update(){
+            var todo = AV.Object.createWithoutData('Song',this.data.id);
             // 修改属性
-            todo.set('content', '每周工程师会议，本周改为周三下午3点半。');
+            ['name','singer','url'].map((item)=>{
+                todo.set(item,this.data[item])
+            })
             // 保存到云端
             todo.save(); 
         }
@@ -64,6 +68,7 @@
             this.bindEvents()
             this.view.render()
             window.eventHub.on('new',(data)=>{              
+              this.model.data=data
                 this.view.render(data)
             })
         },
@@ -75,15 +80,16 @@
             })
         },
         getText(){
-            let data=[]
-            let needs=['name','singer','url',]
-            let string=needs.map((item)=>{
-                data[item]=this.view.$el.find(`[name="${item}"]`).val()          
+            ['name','singer','url'].map((item)=>{
+                    this.model.data[item]=this.view.$el.find(`[name="${item}"]`).val()          
             })
-            this.model.data=data
-            console.log('_____')
-            console.log(this.model.data)
-            this.model.saveData()
+            // 判断当前歌曲ID是否纯在
+            let data=this.model.data
+            if(data.id){
+                this.model.update()
+            }else{
+                this.model.saveData()
+            }
             window.eventHub.emit('songlist',this.model.data)   //这里给列表渲染的参数  
         },
     }
