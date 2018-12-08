@@ -5,6 +5,7 @@
             this.$el=$(this.el)
         },
         template:`
+        <h2>新建歌曲</h2>
         <div>
             <label for="">歌名</label>
             <input type="text" name="name" value="__name__">
@@ -63,18 +64,19 @@
         bindEvents(){
             this.view.$el.on('click','button',(e)=>{
                 e.preventDefault()
-                this.getText()                      
+                this.getText()  
+                this.view.render()                
             })
         },
         getText(){
             let data=[]
             let needs=['name','singer','url']
             let string=needs.map((item)=>{
-                data[item]=this.view.$el.find(`[name="${item}"]`).val()               
+                data[item]=this.view.$el.find(`[name="${item}"]`).val()          
             })
             this.model.data=data
-            window.eventHub.emit('setSong')
-            //这里给列表渲染的参数
+            window.eventHub.emit('setSong')//发给数据库的函数
+            window.eventHub.emit('songlist',this.model.data)   //这里给列表渲染的参数  
         },
     }
     controller.init(view,model)

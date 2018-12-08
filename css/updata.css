@@ -1,14 +1,39 @@
+body{
+    margin:0;padding: 0;
+}
+.side{
+    display: flex;
+}
 .newsong{
+    position: relative;
     border:1px solid burlywood;
+    width: 20vw;
+    height: 100vh;
 }
 .newsong>ol{
     list-style:none;
 }
+.newsong>ol>li{
+    border-bottom:1px solid red;
+}
 .updata{
-    width: 50px;
-    height: 80px;
-    border:1px solid red;
+    text-align: center;
+    padding: 20px;
+    border:2px dashed black;
+    border-radius:6px;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    flex-direction: column;
+    position: absolute;
+    top:80%
 }
 .song-form{
-
+    padding: 60px 60px;
+    border:1px solid blue;
+    width:80vw;
+    height: 100vh;
+}
+.song-form>div{
+    margin: 10px 0;
 }
