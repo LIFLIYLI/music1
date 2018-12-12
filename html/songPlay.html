@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>听音乐，纵想丝滑</title>
+</head>
+<body>
+    <div class="songPlay" id="songPlay">
+        <div class="audio" id="audio"></div>
+        <div class="disc-img" id="discImg"></div>
+        <div class="lyric" id="lyric"></div>
+        <button class="button" id="button">暂停</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="../src/av/av.js"></script>
+
+    <script src="../src/eventHub.js"></script>
+    <script src="../src/songPlay/songPlay.js"></script>
+</body>
+</html>

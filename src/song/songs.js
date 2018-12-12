@@ -13,7 +13,7 @@
             </svg>
             {{data.singer}}
         </p>
-        <a class="playButton" href="../html/song.html?id={{data.url}}">
+        <a class="playButton" href="../html/songPlay.html?id={{data.url}}&&name={{data.name}}">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bofang"></use>
             </svg>
@@ -26,6 +26,7 @@
             .replace('{{data.name}}',data.name)
             .replace('{{data.singer}}',data.singer)
             .replace('{{data.url}}',data.url)
+            .replace('{{data.name}}',data.name)
             )
             this.$el.find('ol.List').append(li)
         }
