@@ -1,0 +1,25 @@
+.songPlay{}
+.songPlay>div.disc-img{
+    border:1px solid red;
+    height: 300px;
+    width: 100vw;
+    position: relative;
+}
+.songPlay>div.disc-img.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.songPlay>div.disc-img>img{
+    border:1px solid blue;
+    position:absolute;
+    top:0;
+    left: 0;
+}
+.songPlay>div.lyric{
+    margin: 20px 0;
+    width: 100vw;
+    height: 40vh;
+    border:1px solid hotpink;
+    overflow: hidden;
+}

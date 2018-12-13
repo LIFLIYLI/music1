@@ -21,10 +21,14 @@
             <label for="">外链</label>
             <input type="text" name="url" value="__url__">
         </div>
+        <div class="lyric">
+            <label for="">歌词</label>
+            <textarea cols=100 rows=10 name="lyric">__lyric__</textarea>
+        </div>
         <button type="submit" id="button">保存歌曲</button>
         `,
         render(data={}){
-            let place=['id','name','singer','url']
+            let place=['id','name','singer','url','lyric']
             html=this.template
             place.map((item)=>{
                 html=html.replace(`__${item}__`,data[item]||'')
@@ -43,6 +47,7 @@
             // 设置优先级
             song.set('singer',this.data.singer);
             song.set('url',this.data.url);
+            song.set('lyric',this.data.lyric);
             song.save().then((todo)=> {
                 let{id,attributes}=todo
                 Object.assign(this.data,{id,...attributes})
@@ -53,7 +58,7 @@
         update(){
             var todo = AV.Object.createWithoutData('Song',this.data.id);
             // 修改属性
-            ['name','singer','url'].map((item)=>{
+            ['name','singer','url','lyric'].map((item)=>{
                 todo.set(item,this.data[item])
             })
             // 保存到云端
@@ -80,7 +85,7 @@
             })
         },
         getText(){
-            ['name','singer','url'].map((item)=>{
+            ['name','singer','url','lyric'].map((item)=>{
                     this.model.data[item]=this.view.$el.find(`[name="${item}"]`).val()          
             })
             // 判断当前歌曲ID是否纯在
