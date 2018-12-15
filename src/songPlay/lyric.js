@@ -1,6 +1,6 @@
 {
     let view = {
-        el:'#lyric',
+        el:'#lyric>#lines',
         render(lyric){
             lyric.split('\n').map((string)=>{
                 let p=document.createElement('p')
@@ -21,7 +21,7 @@
                     p.textContent=string
                 }
                 $(this.el).append(p)
-            })
+            })    
         }
     }
     let model={
@@ -31,7 +31,34 @@
         init(){
             this.view=view
             this.model=model
-            this.findLyric()           
+            this.findLyric()
+            window.eventHub.on('lyricChange',(time)=>{
+                this.lyricChange(time)
+            })         
+        },
+        lyricChange(time){
+            let allP=$(this.view.el).find('p')
+            let p               
+            for(let i=0;i<allP.length;i++){
+                if(i>allP.length-2){
+                    p=allP[i]
+                    break  
+                }else{                   
+                    let currentTime=allP.eq(i).attr('data-time')
+                    let nextTime=allP.eq(i+1).attr('data-time')
+                    if(currentTime <= time && time < nextTime){
+                        p=allP[i] 
+                       break
+                    }              
+                }
+            }
+            let pHeight=p.getBoundingClientRect().top
+            let linesHeight=$(this.view.el)[0].getBoundingClientRect().top
+            let height=pHeight-linesHeight
+            $(this.view.el).css({
+                transform:`translateY(${-height+24}px)`
+            })  
+            //$(p).addClass('active').siblings('.active').removeClass('active')
         },
         findLyric(){
             var query = new AV.Query('Song');

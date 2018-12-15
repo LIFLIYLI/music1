@@ -18,8 +18,13 @@
             this.view=view
             this.model=model
             this.view.render()
+            this.bindEvents()
         },
-
+        bindEvents(){
+            $(this.view.el).find('#button').on('click',()=>{
+                window.eventHub.emit('audioChange')
+            })
+        }
     }
     controller.init(view,model)
 }

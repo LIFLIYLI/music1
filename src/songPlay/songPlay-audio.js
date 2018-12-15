@@ -18,13 +18,37 @@
     }
     let controller={
         init(view,model){
+            
             this.view=view
             this.model=model
             this.bindevents()
             this.getSongContent()
-            this.view.render(this.model.data)
+            this.view.render(this.model.data)           
+            window.eventHub.on('audioChange',()=>{
+                this.audioChange()
+            })
+            this.audioplay(this.model.data.id)
         },
-        bindevents(){},
+
+        audioplay(){
+            let audio=$(this.view.el).find('audio').get(0)
+            audio.ontimeupdate = ()=>{window.eventHub.emit('lyricChange',audio.currentTime)}       
+        },
+
+        bindevents(){
+           
+        },
+        audioChange(){
+            if(this.model.data.status){
+                $(this.view.el).find('audio')[0].play()
+                this.model.data.status=undefined
+                
+            }else{
+                $(this.view.el).find('audio')[0].pause()
+                this.model.data.status=undefined=true
+            }
+            
+        },
         getSongContent(){
             let search=window.location.search //获取网址查询参数
             if(search.indexOf('?')===0){ //判断参数是否有问号

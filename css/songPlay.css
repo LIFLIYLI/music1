@@ -19,7 +19,7 @@
 .songPlay>div.lyric{
     margin: 20px 0;
     width: 100vw;
-    height: 40vh;
+    height: 20vh;
     border:1px solid hotpink;
     overflow: hidden;
 }
